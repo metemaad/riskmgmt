@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+{% extends "main_module/base_dash.html" %}
+{% load static %}
+{% block body_block %}
+
+<div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">
+<strong>
+                  Risk Register</strong></h3>
+
+                <div class="card-tools">
+
+                  <a href="{% url 'home' %}"  class="btn btn-sm btn-danger float-right m-1" >
+                    <i class="fas fa-times"></i>
+                  </a>
+
+                  {% if user.is_authenticated and perms.main_module.add_risk %}
+                  <a data-toggle="tooltip" data-placement="left"
+                  title="Register new risk here." class="btn btn-sm btn-info float-right m-1" href="{% url 'risk_add' %}">
+                  <!-- <i class="fa fa-plus"></i></a> -->
+                  <!-- <a href="{% url 'risk_add' %}"  class="btn btn-tool" > -->
+                    <i class="fas fa-plus"></i>
+                  </a>
+                  {% endif %}
+                  <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button> -->
+
+                  <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button> -->
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                      <!-- <th>Category</th> -->
+                      <th>Risk Title</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {% for el in RiskList %}
+                    <tr>
+                      <!-- <td> -->
+
+                        <!-- <a href="pages/examples/invoice.html">OR9842</a> -->
+                      <!-- </td> -->
+                      <td class="m-0 p-0" style="width: auto">
+                        {% if user.is_authenticated and perms.main_module.view_risk %}
+                        <a data-toggle="tooltip" data-placement="top"
+                        title="Click here to see details."
+                        href="{% url 'risk_detail' pk=el.pk %}">{{el.title|title}}</a>
+                        {% else %}
+                        <p class="font-weight-light">{{el.title|title}}</p>
+                        {% endif %}
+                      </td>
+                      <td class="m-0 p-0" style="width: 25px">
+                        {% if user.is_authenticated and  perms.main_module.change_risk %}
+                        <a  data-toggle="tooltip" data-placement="left"
+                        title="Click here to edit this risk." style="width: 20px"
+                        class="badge badge-sm m-0 badge-warning float-right"
+                        href="{% url 'risk_update' pk=el.pk %}">
+                        <i class="fa fa-edit"></i>
+                      </a>
+                        {% endif %}
+                        <!-- <span class="badge badge-success">Shipped</span> -->
+                      </td>
+                      <td class="m-0 p-0" style="width: 25px">
+
+                        {% if user.is_authenticated and  perms.main_module.delete_risk %}
+                        <a  data-toggle="tooltip" data-placement="left"
+                        title="Click here to remove this risk." style="width: 20px"
+                        class="badge badge-sm m-0 badge-danger float-right"
+                        href="{% url 'risk_del' pk=el.pk %}">
+                        <i class="fa fa-close"></i>
+                      </a>
+                        {% endif %}
+
+                        <!-- <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div> -->
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <a href="{% url 'risk_add' %}" class="btn btn-sm m-1 btn-info float-left">Register New Risk</a>
+                <!-- <a href="#" class="btn btn-sm btn-secondary float-right">View All Orders</a> -->
+
+
+
+
+                    <div class="pagination">
+                      <center>
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}
+                                <a class="btn btn-sm m-1 btn-primary" href="?page=1"> first </a>
+                                <a class="btn btn-sm m-1 btn-primary" href="?page={{ page_obj.previous_page_number }}"> previous </a>
+                            {% endif %}
+
+                            <span class="current">
+                                 {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                            </span>
+
+                            {% if page_obj.has_next %}
+                                <a class="btn btn-sm m-1 btn-primary" href="?page={{ page_obj.next_page_number }}"> next </a>
+                                <a class="btn btn-sm m-1 btn-primary" href="?page={{ page_obj.paginator.num_pages }}"> last </a>
+                            {% endif %}
+                        </span>
+                        </center>
+                    </div>
+
+
+
+              </div>
+              <!-- /.card-footer -->
+            </div>
+
+   <!-- <div class="card">
+     <div class="card-header"><h5 class="float-left">Risk Register</h5>
+   {% if user.is_authenticated and perms.main_module.add_risk %}
+   <a  data-toggle="tooltip" data-placement="left" title="Register new risk here." class="btn btn-primary float-right" href="{% url 'risk_add' %}"> <i class="fa fa-plus"></i></a>
+   {% endif %}
+     </div>
+     <div class="card-body">
+
+
+
+<table class="table table-sm table-light">
+  <thead>
+    <tr>
+
+      <th scope="col">Category</th>
+      <th scope="col">Risk Title</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for el in RiskList %}
+    <tr>
+
+      <td width="50px">{{el.category.category_title}}</td>
+      <td >
+        {% if user.is_authenticated and perms.main_module.view_risk %}
+        <a data-toggle="tooltip" data-placement="top" title="Click here to see details." class="nav-link float-left" href="{% url 'risk_detail' pk=el.pk %}" class="card-link">{{el.title}}</a>
+        {% else %}
+        <p class="float-left">{{el.title}}</p>
+        {% endif %}
+
+      {% if user.is_authenticated and  perms.main_module.change_risk %}
+      <a  data-toggle="tooltip" data-placement="left" title="Click here to edit this risk." class="btn btn-warning float-right" href="{% url 'risk_update' pk=el.pk %}"> <i class="fa fa-edit"></i></a>
+      {% endif %}
+      {% if user.is_authenticated and  perms.main_module.delete_risk %}
+      <a  data-toggle="tooltip" data-placement="right" title="Click here to remove this risk." class="btn btn-danger float-right" href="{% url 'risk_del' pk=el.pk %}"><i class="	fa fa-close"></i></a></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+
+  </div>
+  <div class="card-footer">
+
+      <div class="pagination">
+        <center>
+          <span class="step-links">
+              {% if page_obj.has_previous %}
+                  <a class="btn btn-primary" href="?page=1"> first </a>
+                  <a class="btn btn-primary" href="?page={{ page_obj.previous_page_number }}"> previous </a>
+              {% endif %}
+
+              <span class="current">
+                   {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+              </span>
+
+              {% if page_obj.has_next %}
+                  <a class="btn btn-primary" href="?page={{ page_obj.next_page_number }}"> next </a>
+                  <a class="btn btn-primary" href="?page={{ page_obj.paginator.num_pages }}"> last </a>
+              {% endif %}
+          </span>
+          </center>
+      </div>
+
+      </div>
+</div> -->
+{% endblock %}

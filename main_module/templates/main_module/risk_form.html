@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% extends "main_module/base_dash.html" %}
+{% load static %}
+{% block header_head_block %}
+
+<link rel="stylesheet" href="{% static 'plugins/ion-rangeslider/css/ion.rangeSlider.min.css' %}">
+
+<link rel="stylesheet" href="{% static 'plugins/bootstrap-slider/css/bootstrap-slider.min.css' %}">
+<!-- summernote -->
+<link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.css' %}">
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+{% endblock %}
+
+{% block body_block %}
+<div class="card m-1">
+  <form class=""  method="post">
+    {% csrf_token %}
+              <div class="card-header border-transparent">
+                <h3 class="card-title">
+<strong>
+  {% if not form.instance.pk %}
+  Register Risk
+  {% else %}
+  Update Risk
+  {% endif %}</strong></h3>
+
+   <div class="card-tools">
+
+
+     <a href="{% url 'home' %}"  class="btn btn-sm btn-danger float-right m-1" >
+       <i class="fas fa-times"></i>
+     </a>
+
+     <!-- {% if user.is_authenticated and perms.main_module.add_risk %}
+     <a data-toggle="tooltip" data-placement="left"
+     title="Register new risk here." class="btn btn-sm btn-info float-right m-1" href="{% url 'risk_add' %}"> -->
+     <!-- <i class="fa fa-plus"></i></a> -->
+     <!-- <a href="{% url 'risk_add' %}"  class="btn btn-tool" > -->
+       <!-- <i class="fas fa-plus"></i>
+     </a>
+     {% endif %} -->
+
+   </div>
+ </div>
+ <!-- /.card-header -->
+ <div class="card-body">
+
+   <!-- <a class="btn btn-danger" href="{% url 'risk_list' %}"><i class="fa fa-close"></i></a> -->
+
+     <!-- {{ form.as_p }} -->
+     {{ form.title }}
+     {{ form.description }}
+     {{ form.category }}
+     {{ form.user_register }}
+
+
+     <!-- <div class="form-group">
+                       <label>Risk Category</label>
+                       <select class="form-control select2" style="width: 100%;">
+                         <option selected="selected">Alabama</option>
+                         <option>Alaska</option>
+                         <option>California</option>
+                         <option>Delaware</option>
+                         <option>Tennessee</option>
+                         <option>Texas</option>
+                         <option>Washington</option>
+                       </select>
+                     </div> -->
+
+
+     <!-- <div class="mb-3">
+       <label for="description">Description:</label>
+<textarea class="textarea" id="description" placeholder="Place some text here"
+style="width: 100%; height: 400px; font-size: 14px; line-height: 18px;
+border: 1px solid #dddddd; padding: 10px;"></textarea>
+</div> -->
+
+
+     <!-- <div class="row margin">
+                  <div class="col-sm-12">
+                    <label for="range_4">Likelihood:</label>
+                    <input id="range_4" type="text" name="range_4" value="0;10">
+                  </div>
+                  </div>
+      <div class="row margin">
+                  <div class="col-sm-12">
+                    <label for="range_5">Impact:</label>
+                    <input id="range_5" type="text" name="range_4" value="0;10">
+                  </div>
+                </div> -->
+
+                <!-- <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                      <label class="custom-control-label" for="customSwitch1">is active</label>
+                                    </div>
+                                  </div> -->
+
+                                  <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                    {{ form.create_date }}
+                                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                  </div>
+
+                                  {{ form.impact }}
+                                  {{ form.likelihood }}
+                                  {{ form.is_active }}
+
+
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer clearfix">
+                                  <!-- <a href="{% url 'risk_add' %}" class="btn btn-sm m-1 btn-info float-left">Register New Risk</a> -->
+
+<input type="submit" class="btn btn-sm m-1 btn-info float-left" value="Submit">
+</div>
+   </form>
+
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block end_script_block %}
+
+
+<script src="{% static 'plugins/ion-rangeslider/js/ion.rangeSlider.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-slider/bootstrap-slider.min.js' %}"></script>
+<script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
+<script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+
+
+<script>
+  $(function () {
+    $('#range_4').ionRangeSlider({
+      min     : 0,
+      max     : 10,
+      from    : 0,
+      to      : 10,
+      type      : 'single',
+      step      : 1,
+      postfix   : ' ',
+      from      : 0,
+      hideMinMax: true,
+      hideFromTo: false
+    })
+
+    $('#range_5').ionRangeSlider({
+      min     : 0,
+      max     : 10,
+      from    : 0,
+      to      : 10,
+      type      : 'single',
+      step      : 1,
+      postfix   : ' ',
+      from      : 0,
+      hideMinMax: true,
+      hideFromTo: false
+    })
+
+  $('.textarea').summernote()
+
+  $('.select2').select2()
+
+
+
+});
+</script>
+<script type="text/javascript">
+$(function () {
+  $("#datetimepicker1").datetimepicker({
+    format: 'DD/MM/YYYY HH:mm',
+  });
+});
+        </script>
+{% endblock %}

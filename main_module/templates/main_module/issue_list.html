@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% extends "main_module/base.html" %}
+{% load static %}
+{% load my_tag %}
+{% block body_block %}
+
+
+
+   <div class="card">
+     <div class="card-header"><h5 class="float-left">Issues List</h5>
+   {% if user.is_authenticated and perms.main_module.add_issues %}
+   <a  data-toggle="tooltip" data-placement="left" title="Register new risk categories here."
+    class="btn btn-primary float-right" href="{% url 'issue_add' %}">
+     <i class="fa fa-plus"></i></a>
+   {% endif %}
+     </div>
+     <div class="card-body">
+<table class="table table-sm table-light">
+  <thead>
+    <tr>
+
+      <th scope="col">Code</th>
+      <th scope="col">Issue Title</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for el in IssueList %}
+    <tr>
+
+      <td style="background-color:  " width="50px">
+
+    </td>
+      <td >
+        {% if user.is_authenticated and perms.main_module.view_issues %}
+        <a data-toggle="tooltip" data-placement="top" title="Click here to see details."
+        class="nav-link float-left" href="{% url 'issue_detail' pk=el.pk %}"
+        class="card-link">{{el}}</a>
+        {% else %}
+        <p class="float-left">{{el}} </p>
+        {% endif %}
+
+
+
+      {% if user.is_authenticated and  perms.main_module.delete_issues %}
+      <a  data-toggle="tooltip" data-placement="right" title="Click here to remove this issues category."
+      class="btn btn-danger float-right" href="{% url 'issue_del' pk=el.pk %}">
+      <i class="	fa fa-close"></i></a>
+      {% endif %}
+      {% if user.is_authenticated and  perms.main_module.change_riskcategory %}
+      <a  data-toggle="tooltip" data-placement="left" title="Click here to edit this issues category."
+      class="btn btn-warning float-right" href="{% url 'issue_update' pk=el.pk %}">
+      <i class="fa fa-edit"></i></a>
+      {% endif %}
+      <!-- {% if el.type_of_category == "0" %}
+  <span class="badge badge-primary float-right">Pure</span>
+  {% endif %}
+  {% if el.type_of_category == "1" %}
+  <span class="badge badge-success float-right">Speculative</span>
+  {% endif %}-->
+    </tr>
+    {% endfor %}
+    </td>
+
+
+
+
+  </tbody>
+</table>
+
+
+  </div>
+  <div class="card-footer">
+
+      <div class="pagination">
+        <center>
+          <span class="step-links">
+              {% if page_obj.has_previous %}
+                  <a class="btn btn-primary" href="?page=1"> first </a>
+                  <a class="btn btn-primary" href="?page={{ page_obj.previous_page_number }}"> previous </a>
+              {% endif %}
+
+              <span class="current">
+                   {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+              </span>
+
+              {% if page_obj.has_next %}
+                  <a class="btn btn-primary" href="?page={{ page_obj.next_page_number }}"> next </a>
+                  <a class="btn btn-primary" href="?page={{ page_obj.paginator.num_pages }}"> last </a>
+              {% endif %}
+          </span>
+          </center>
+      </div>
+
+      </div>
+</div>
+{% endblock %}

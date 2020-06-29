@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends "main_module/index_base2.html" %}
+{% load static %}
+{% load bootstrap3 %}
+{% load my_tag %}
+{% block body_block %}
+{% if registered %}
+
+
+
+        <!-- <a class="btn btn-light btn-xl" href="https://startbootstrap.com/themes/creative/">Download Now!</a> -->
+
+<div class="jumbotron" style="
+   width: 80%;
+   margin-top: 100px;
+   margin-left: auto;margin-right: auto; margin-bottom:10px">
+   <h4>Thank you for registeration </h4>
+
+</div>
+{% else %}
+
+<div class="jumbotron" style="
+   width: 80%;margin-top: 100px;
+   margin-left: auto;margin-right: auto; margin-bottom:10px">
+   <h4>registeration :</h4>
+   <form class="" method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+     {% bootstrap_form form %}
+     {{ user_form.as_p }}
+     {{ profile_form.as_p }}
+     <input type="submit" name="" value="Register">
+
+   </form>
+
+</div>
+
+
+
+
+{% endif %}
+
+
+
+
+{% endblock %}
+{% block endscript_block %}
+
+{% endblock %}

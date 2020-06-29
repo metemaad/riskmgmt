@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends "main_module/base.html" %}
+{% load static %}
+{% block body_block %}
+<div class="jumbotron" style="
+   width: 80%;
+   margin-left: auto;margin-right: auto; margin-bottom:10px">
+   <h4>Risk </h4>
+   <h5>{{risk_detail.title}}</h5>
+   <h5>{{risk_detail.type}}</h5>
+   <h5>{{risk_detail.user_register}}</h5>
+   <h5>{{risk_detail.create_date}}</h5>
+   <h5>{{risk_detail.impact}}</h5>
+
+      <div class="card-body">
+               {{risk_detail.description|safe}}
+   </div>
+   <a class="btn btn-danger" href="{% url 'risk_list' %}"><i class="	fa fa-close"></i></a>
+</div>
+{% endblock %}

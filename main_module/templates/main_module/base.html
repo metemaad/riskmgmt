@@ -1,0 +1,165 @@
+    <!DOCTYPE html>
+    {% load static %}
+    <html lang="en" dir="ltr">
+       <head>
+          <meta charset="utf-8">
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+          <link rel='stylesheet' href="{% static 'css/bootstrap.min.css' %}">
+          <script src="{% static 'js/bootstrap.min.js' %}"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+          <title></title>
+       </head>
+       <body>
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+             <a class="navbar-brand" href="#">
+                <div class="Container">
+                   <img src="{% static welcomePages.logo_url %}" height="50px" alt="">
+                </div>
+             </a>
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+                <ul class="navbar-nav  mr-auto">
+                   <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'about' %}">
+                        Welcome </a>
+                   </li>
+                   <li class="nav-item dropdown">
+                <a class="nav-link nav-item-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkri" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Risk Identification
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkri">
+                    <a class="nav-link dropdown-item" href="{% url 'risk_list' %}">Risk Register</a>
+                    <a class="nav-link dropdown-item" href="{% url 'heat_map' %}">Heat Map</a>
+
+
+                </div>
+            </li>
+<li class="nav-item dropdown">
+            <a class="nav-link nav-item-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkran" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                Risk Analysis
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkran">
+                <a class="nav-link dropdown-item" href="{% url 'risk_list' %}">Risk Register</a>
+                <a class="nav-link dropdown-item" href="/ballast/upload/new/">New</a>
+
+            </div>
+        </li>
+<li class="nav-item dropdown">
+        <a class="nav-link nav-item-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkrt" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Risk Treatments
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkrt">
+            <a class="nav-link dropdown-item" href="{% url 'risk_list' %}">Risk Register</a>
+            <a class="nav-link dropdown-item" href="/ballast/upload/new/">New</a>
+
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+    <a class="nav-link nav-item-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkrm" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">
+        Risk Monitoring
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkrm">
+        <a class="nav-link dropdown-item" href="{% url 'risk_list' %}">Risk Register</a>
+        <a class="nav-link dropdown-item" href="/ballast/upload/new/">New</a>
+
+    </div>
+</li>
+
+            <li class="nav-item dropdown">
+            <a class="nav-link nav-item-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+             Configurations
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+             <a class="nav-link dropdown-item" href="{% url 'riskcategory_list' %}">Risk Categories</a>
+             <a class="nav-link dropdown-item" href="{% url 'riskcategory_map' %}">Risk Category Map</a>
+
+            </div>
+            </li>
+
+
+            <li class="nav-item dropdown">
+            <a class="nav-link nav-item-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+             Tools
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+             <a class="nav-link dropdown-item" href="{% url 'issue_list' %}">Issues</a>
+             <a class="nav-link dropdown-item" href="{% url 'issue_list' %}">Issues Log</a>
+             <a class="nav-link dropdown-item" href="{% url 'riskcategory_map' %}">Incidents</a>
+             <a class="nav-link dropdown-item" href="{% url 'riskcategory_map' %}">Losses</a>
+
+            </div>
+            </li>
+
+
+             <li class="nav-item active">
+             <a class="nav-link" href="{% url 'risk_list' %}">Documents</a>
+           </li>
+
+
+
+
+
+
+                </ul>
+
+
+                   {% if user.is_authenticated %}
+                   <ul class="navbar-nav">
+                   <li class="nav-link float-right"><a  href="{% url 'logout' %}"  class="btn btn-outline-secondary" role="button" aria-pressed="true">{{ user }} logout</a></li>
+                   </ul>
+                   {% else %}
+                   <ul class="nav navbar-nav float-right">
+                   <li class="nav-link float-right"><a  href="{% url 'login' %}" class="btn btn-outline-secondary" role="button" aria-pressed="true">login</a></li>
+                   </ul>
+
+
+
+                   {% endif %}
+
+             </div>
+          </nav>
+          <div class="Container" style="background:url('{% static welcomePages.backgroungimg_url %}'); no-repeat center center fixed;
+             -webkit-background-size: cover;
+             -moz-background-size: cover;
+             -o-background-size: cover;
+             background-size: cover;">
+             <div class="Container">
+                {% block body_block %}
+                {% endblock %}
+             </div>
+             <div class="Container">
+                <!-- Footer -->
+                <footer class="page-footer font-small blue">
+                   <!-- Copyright -->
+                   <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                      <a href="https://web.cs.dal.ca/~etemad"> {{ welcomePages.title  }}</a>
+                   </div>
+                   <!-- Copyright -->
+                </footer>
+                <!-- Footer -->
+             </div>
+          </div>
+          <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+       </body>
+    </html>
