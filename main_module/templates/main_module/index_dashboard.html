@@ -372,7 +372,6 @@
               <i class="nav-icon fas fa-cubes"></i>
               <p>
                 Tools/Plugins
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -396,6 +395,18 @@
               </li>
 
             </ul>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cubes"></i>
+              <p>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
           </li>
 
         </ul>
@@ -634,7 +645,7 @@
             <!--/.direct-chat -->
 
             <!-- TO DO List -->
-            
+
             <!-- /.card -->
           </section>
           <!-- /.Left col -->
@@ -709,7 +720,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="#"></a></strong>
+    <strong>Copyright &copy; 2020 <a href="#"></a></strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.5

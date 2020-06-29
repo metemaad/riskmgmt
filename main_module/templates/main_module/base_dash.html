@@ -367,6 +367,14 @@
                   <p>Risk Categories Tree</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{% url 'issue_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Issue Category</p>
+                </a>
+              </li>
+
+
             </ul>
           </li>
           <li class="nav-item has-treeview">
@@ -399,6 +407,18 @@
 
             </ul>
           </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cubes"></i>
+              <p>
+
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'welcomepage' %}">Logout</a></li>
+
+              </p>
+            </a>
+          </li>
+          {% endif%}
 
         </ul>
       </nav>

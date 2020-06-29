@@ -15,16 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from main_module import views
+from main_module.views_pkg import (IndexView)
+from main_module.views_pkg.func_view import (register,)
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('main_module/', include('main_module.urls')),
-    path('', views.IndexView.as_view(), name='index'),
-    url(r'^register/$',views.register,name="register"),
-    url(r'^signup/$',views.register,name="signup"),
-    url(r'^logout/$',auth_views.LogoutView.as_view(template_name="registeration/logout.html"),name="logout"),
-    url(r'^login/$',auth_views.LoginView.as_view(template_name="registeration/login.html",redirect_field_name="main_module/home"),name="login"),
+    path('', IndexView.IndexView.as_view(), name='index'),
+    path('welcome', IndexView.IndexView.as_view(), name='welcomepage'),
+    url(r'^register/$',register.register,name="register"),
+    url(r'^signup/$',register.register,name="signup"),
+    url(r'^logout/$',auth_views.LogoutView.as_view(template_name="registeration/logout.html"),
+        name="logout"),
+    url(r'^login/$',auth_views.LoginView.as_view(template_name="registeration/login.html",
+                                                 redirect_field_name="main_module/home"),
+        name="login"),
 ]
